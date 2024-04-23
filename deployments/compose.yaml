@@ -1,0 +1,59 @@
+services:
+  ric:
+    image: muriloavlis/flexric:dev
+    build:
+      context: ../docker
+      dockerfile: Dockerfile.flexric.ubuntu
+    networks:
+      - flexric-net
+    container_name: flexric
+    # ports:
+    #   - 36421/sctp
+    #   - 36422/sctp
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  gnb-cu:
+    image: muriloavlis/flexric-gnb-cu:dev
+    build: 
+      context: ../docker
+      dockerfile: Dockerfile.gnb-cu.ubuntu
+      args:
+        - NEAR_RIC_IP=<MACHINE-IP>
+    container_name: flexric-gnb-cu
+    networks:
+      - flexric-net
+    # ports:
+    #   - 36421/sctp
+    depends_on:
+      - ric
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+  
+  gnb-du:
+    image: muriloavlis/flexric-gnb-du:dev
+    build: 
+      context: ../docker
+      dockerfile: Dockerfile.gnb-du.ubuntu
+      args:
+        - NEAR_RIC_IP=<MACHINE-IP>
+    container_name: flexric-gnb-du
+    networks:
+      - flexric-net
+    # ports:
+    #   - 36421/sctp
+    depends_on:
+      - ric
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  
+networks:
+  flexric-net:
+    name: flexric-net
