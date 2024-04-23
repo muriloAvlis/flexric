@@ -143,5 +143,5 @@ RUN ldconfig && \
 ## E2
 EXPOSE 36421/sctp
 
-CMD ["-c", "/usr/local/etc/flexric/gnb-cu.conf"]
-ENTRYPOINT [ "emu_agent_gnb_cu" ]
+CMD ["-o0", "emu_agent_gnb_cu", "-c", "/usr/local/etc/flexric/gnb-cu.conf"]
+ENTRYPOINT [ "stdbuf" ]
