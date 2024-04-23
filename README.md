@@ -4,8 +4,15 @@ xApp development environment using Near-RT FlexRIC from the Mosaic5G project
 
 ## Requirements
 
-- Docker;
--
+- make;
+- Docker (20.10 or newer);
 -
 
 ## Get Starting
+
+### Building Docker Images
+To build the RIC, CU and DU Docker images, run to following command:
+
+```sh
+make docker-build-all
+```
