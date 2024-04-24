@@ -53,8 +53,8 @@ RUN git clone https://gitlab.eurecom.fr/mosaic5g/flexric.git /flexric && \
 WORKDIR /flexric
 
 ## Copy xApp files
-COPY xApps/cpp/qmai examples/xApp/c/qmai
-COPY xApps/cpp/CMakeLists.txt examples/xApp/c/CMakeLists.txt
+COPY xApps/cpp examples/xApp/cpp
+COPY xApps/CMakeLists.txt examples/xApp/CMakeLists.txt
 
 RUN mkdir build && \
     cd build && \
