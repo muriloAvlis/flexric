@@ -2,13 +2,13 @@ name: Docker Image CI
 
 on:
   push:
-    branches:
-        - 'main'
+    branches: [ "main" ]
+
     paths: 
         - 'xApps/cpp/qmai/*'
+        
   pull_request:
-    branches:
-        - 'main'
+    branches: [ "main" ]
 
 jobs:
   docker:
