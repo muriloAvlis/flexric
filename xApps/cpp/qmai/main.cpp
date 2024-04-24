@@ -1,5 +1,6 @@
 // flexric libs
-#include "../../../../src/xApp/e42_xapp_api.h"
+// #include "../../../../src/xApp/e42_xapp_api.h" // To Dockerfile
+#include "../../../../flexric/src/xApp/e42_xapp_api.h"
 
 // c++ libs
 #include <iostream>
@@ -20,13 +21,12 @@ int main(int argc, char* argv[])
 
     // get e2Nodes
     e2_node_arr_xapp_t e2Nodes = e2_nodes_xapp_api();
-    // free e2Nodes buff
 
     assert(e2Nodes.len > 0);
 
     cout << "[qmai-xApp]: Connected E2 Nodes: " << unsigned(e2Nodes.len) << endl;
 
-    // stop xApp condition
+    // xApp stop condition
     while (try_stop_xapp_api() == false)
     {
         usleep(1000);
