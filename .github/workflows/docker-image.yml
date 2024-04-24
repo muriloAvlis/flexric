@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: "{context}/docker/Dockerfile.qmai.minideb"
+          file: "docker/Dockerfile.qmai.minideb"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
