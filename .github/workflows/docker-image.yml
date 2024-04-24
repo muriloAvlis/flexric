@@ -6,6 +6,9 @@ on:
         - 'main'
     paths: 
         - 'xApps/cpp/qmai/'
+  pull_request:
+    branches:
+        - 'main'
 
 jobs:
   docker:
