@@ -1,6 +1,5 @@
 // flexric libs
-// #include "../../../../src/xApp/e42_xapp_api.h" // To Dockerfile
-#include "../../../../flexric/src/xApp/e42_xapp_api.h"
+#include "../../../../src/xApp/e42_xapp_api.h"
 
 // c++ libs
 #include <iostream>
@@ -35,7 +34,7 @@ int main(int argc, char* argv[])
     // clear xApp data
     free_e2_node_arr_xapp(&e2Nodes);
 
-    cout << "Hello World!" << endl;
+    
     cout << "[qmai-xApp]: Finishing xApp..." << endl;
     return 0;
 }

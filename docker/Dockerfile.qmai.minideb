@@ -113,7 +113,7 @@ COPY --from=oai-flexric-builder \
 
 ## Copy xApp
 COPY --from=oai-flexric-builder \
-    /flexric/build/examples/xApp/c/qmai/xapp_qmai /usr/local/bin/xapp_qmai
+    /flexric/build/examples/xApp/cpp/qmai/xapp_qmai /usr/local/bin/xapp_qmai
 
 ## Copy Config file
 COPY configs/xApp.conf /usr/local/etc/flexric/xApp.conf
