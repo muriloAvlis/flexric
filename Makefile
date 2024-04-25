@@ -61,7 +61,7 @@ gnb-cu-logs: ## Get FlexRIC-gNB-CU logs
 	@docker logs -f flexric-gnb-cu
 
 gnb-du-logs: ## Get FlexRIC-gNB-DU logs
-	@docker logs -f flexric-gnb-cu
+	@docker logs -f flexric-gnb-du
 
 
 clean-all: ## Delete all FlexRIC containers on Docker
