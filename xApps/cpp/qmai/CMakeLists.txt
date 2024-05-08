@@ -2,14 +2,23 @@ cmake_minimum_required(VERSION 3.15)
 
 project(QMAI-xApp VERSION 0.0.1 LANGUAGES CXX)
 
+## Libraries fonts
+set(LIBS_SOURCES
+    libs/logger.cpp
+)
 
+## Libraries headers
+set(LIBS_HEADERS
+    include/logger.hpp
+)
+
+## Compile libs as shared objects
+add_library(logger SHARED ${LIBS_SOURCES} ${LIBS_HEADERS})
+
+## Executable
 add_executable(xapp_qmai 
 ./src/main.cpp
 )
-
-## ADD Libs
-include_directories(${CMAKE_SOURCE_DIR}/include)
-link_directories(${CMAKE_SOURCE_DIR}/libs)
 
 target_link_libraries(xapp_qmai
                       PUBLIC
@@ -19,3 +28,10 @@ target_link_libraries(xapp_qmai
                       -lsctp
                       -ldl
                       )
+
+# target_link_libraries(xapp_qmai
+#                       PUBLIC
+#                       logger                
+#                       )
+                      
+target_include_directories(xapp_qmai PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)              

@@ -67,6 +67,8 @@ RUN mkdir build && \
           -DKPM_VERSION=KPM_V3_00 .. && \
     ninja && \
     ninja install && \
+    echo "--- Check shared objects dependencies for executable QMAI-xApp ---" && \
+    ldd /flexric/build/examples/xApp/cpp/qmai/xapp_qmai && \
     echo "--- Check shared objects dependencies for xApp shared library ---" && \
     ldd /flexric/build/src/xApp/libe42_xapp_shared.so
 
