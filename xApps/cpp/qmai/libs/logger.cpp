@@ -13,12 +13,11 @@
 
 #include <iostream>
 #include <ctime>
-#include <filesystem>
 #include <fstream>
 
 using std::string, std::cout, std::time_t, std::strftime, std::localtime;
 
-Logger::Logger(Level logLevel, const string &xAppName) : logLevel(logLevel), xAppName(xAppName) {}
+Logger::Logger(Level logLevel, const string &xAppName) : xAppName(xAppName), logLevel(logLevel) {}
 
 string Logger::getTimestamp()
 {
@@ -45,60 +44,4 @@ Logger::Level Logger::getLogLevel()
 void Logger::setLogLevel(Level logLevel)
 {
     Logger::logLevel = logLevel;
-}
-
-void Logger::info(const string &message)
-{
-    if (Logger::getLogLevel() == Logger::Level::INFO)
-    {
-        cout << "[" << Logger::getTimestamp() << "]"
-             << "[" << Logger::levelStr.at(static_cast<u_int8_t>(Logger::getLogLevel())) << "]"
-             << "["
-             << Logger::xAppName
-             << "]"
-             << "[" << Logger::getFilename() << "] "
-             << message << '\n';
-    }
-}
-
-void Logger::warn(const string &message)
-{
-    if (Logger::getLogLevel() == Logger::Level::WARNING ||
-        Logger::getLogLevel() == Logger::Level::INFO)
-    {
-        cout << "[" << Logger::getTimestamp() << "]"
-             << "[" << Logger::levelStr.at(static_cast<u_int8_t>(Logger::getLogLevel())) << "]"
-             << "["
-             << Logger::xAppName
-             << "]"
-             << "[" << Logger::getFilename() << "] "
-             << message << '\n';
-    }
-}
-
-void Logger::error(const string &message)
-{
-    if (Logger::getLogLevel() == Logger::Level::ERROR ||
-        Logger::getLogLevel() == Logger::Level::WARNING ||
-        Logger::getLogLevel() == Logger::Level::INFO)
-    {
-        cout << "[" << Logger::getTimestamp() << "]"
-             << "[" << Logger::levelStr.at(static_cast<u_int8_t>(Logger::getLogLevel())) << "]"
-             << "["
-             << Logger::xAppName
-             << "]"
-             << "[" << Logger::getFilename() << "] "
-             << message << '\n';
-    }
-}
-
-void Logger::debug(const string &message)
-{
-    cout << "[" << Logger::getTimestamp() << "]"
-         << "[" << Logger::levelStr.at(static_cast<u_int8_t>(Logger::getLogLevel())) << "]"
-         << "["
-         << Logger::xAppName
-         << "]"
-         << "[" << Logger::getFilename() << "] "
-         << message << '\n';
 }

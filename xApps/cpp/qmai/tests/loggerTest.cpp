@@ -2,20 +2,19 @@
 
 int main(int argc, char const *argv[])
 {
+    Logger logger;
     // set INFO level
-    Logger log(Logger::Level::INFO);
-    log.info("Show informational messages only");
+    logger.info("Num é possível");
 
-    // change log leve to WARNING
-    log.setLogLevel(Logger::Level::WARNING);
-    log.warn("Show informational and warning messages");
+    // set WARN level (default)
+    logger.setLogLevel(Logger::Level::WARNING);
+    logger.warn("Sim é!");
 
-    // change log leve to ERROR
-    log.setLogLevel(Logger::Level::ERROR);
-    log.error("Show informational, warning and error messages");
+    // set ERROR level
+    logger.setLogLevel(Logger::Level::ERROR);
+    logger.error("Demorei um dia fazendo isso :(");
 
-    // change log leve to ERROR
-    log.setLogLevel(Logger::Level::DEBUG);
-    log.debug("Show all level messages");
-    return EXIT_SUCCESS;
+    // set DEBUG level
+    logger.setLogLevel(Logger::Level::DEBUG);
+    logger.debug("F...");
 }
