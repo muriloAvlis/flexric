@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.15)
 
 project(QMAI-xApp VERSION 0.0.1 LANGUAGES CXX)
 
-## Compile libs as shared objects
+## Compile log lib
 add_library(logger SHARED libs/logger.cpp)
 
 ## Executable
-add_executable(xapp_qmai 
+add_executable(xapp_qmai
 ./src/main.cpp
 )
 

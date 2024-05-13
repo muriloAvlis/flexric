@@ -75,8 +75,8 @@ public:
              << "[" << this->levelMsg.at(static_cast<u_int8_t>(this->Level::INFO)) << "]"
              << "["
              << this->xAppName
-             << "]"
-             << "[" << this->getFilename() << "] "
+             << "] "
+             //  << "[" << this->getFilename() << "] "
              << message << '\n';
     }
 
@@ -95,8 +95,8 @@ public:
                  << "[" << this->levelMsg.at(static_cast<u_int8_t>(this->Level::WARNING)) << "]"
                  << "["
                  << this->xAppName
-                 << "]"
-                 << "[" << this->getFilename() << "] "
+                 << "] "
+                 //  << "[" << this->getFilename() << "] "
                  << message << '\n';
         }
     }
@@ -116,8 +116,8 @@ public:
                  << "[" << this->levelMsg.at(static_cast<u_int8_t>(this->Level::ERROR)) << "]"
                  << "["
                  << this->xAppName
-                 << "]"
-                 << "[" << this->getFilename() << "] "
+                 << "] "
+                 //  << "[" << this->getFilename() << "] "
                  << message << '\n';
         }
     }
@@ -136,8 +136,8 @@ public:
                  << "[" << this->levelMsg.at(static_cast<u_int8_t>(this->Level::DEBUG)) << "]"
                  << "["
                  << this->xAppName
-                 << "]"
-                 << "[" << this->getFilename() << "] "
+                 << "] "
+                 //  << "[" << this->getFilename() << "] "
                  << message << '\n';
         }
     }
@@ -155,4 +155,6 @@ public:
      * @param logLevel
      */
     void setLogLevel(Level logLevel);
+
+    // TODO: Add formatted log support
 };

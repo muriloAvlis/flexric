@@ -1,6 +1,5 @@
 // flexric libs
 #include "../../../../../src/xApp/e42_xapp_api.h"
-#include "../../../../../src/util/ngran_types.h"
 
 // c++ libs
 #include <cassert>
@@ -8,9 +7,11 @@
 
 // local libs
 #include "logger.hpp"
+#include "defer.hpp"
+#include "e2.hpp"
 
-// set log level
-Logger logger(Logger::Level::DEBUG);
+// initialize xApp logger
+Logger logger(Logger::Level::DEBUG, "QMAI-xApp");
 
 int main(int argc, char *argv[])
 {
@@ -23,20 +24,21 @@ int main(int argc, char *argv[])
 
     // get e2Nodes
     e2_node_arr_xapp_t e2Nodes = e2_nodes_xapp_api();
-
     assert(e2Nodes.len > 0);
 
-    // print e2 nodes count
-    logger.debug("E2 Nodes QTD: " + std::to_string(e2Nodes.len));
+    // clear data from e2 nodes when finished
+    defer(free_e2_node_arr_xapp(&e2Nodes));
+
+    // print e2 node informatios
+    e2::printE2NodesInfo(e2Nodes);
 
     // xApp stop condition
     while (try_stop_xapp_api() == false)
     {
-        usleep(1000); // 10 ms
+        usleep(1000); // 1 ms
     }
 
-    // clear xApp data
-    free_e2_node_arr_xapp(&e2Nodes);
+    logger.info("xApp completed successfully! :)");
 
     return EXIT_SUCCESS;
 }

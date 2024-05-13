@@ -28,6 +28,7 @@ string Logger::getTimestamp()
     return string(timestamp);
 }
 
+// FIXME
 string Logger::getFilename()
 {
     // only for Linux
