@@ -1,0 +1,3 @@
+[submodule "xApps/cpp/qmai/libs/spdlog"]
+	path = xApps/cpp/qmai/libs/spdlog
+	url = https://github.com/gabime/spdlog
