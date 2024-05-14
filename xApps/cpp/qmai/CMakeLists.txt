@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.15)
 
 project(QMAI-xApp VERSION 0.0.1 LANGUAGES CXX)
 
+## spdlog log level env
+add_compile_definitions(SPDLOG_ACTIVE_LEVEL)
+
 ## Add libs
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs) ## local libs
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/spdlog) ## scplog

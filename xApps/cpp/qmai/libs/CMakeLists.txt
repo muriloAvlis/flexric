@@ -14,9 +14,6 @@ set(HEADERS
     ../include/rnib.hpp
 )
 
-## set spdlog log level
-add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE)
-
 ## Compile libs
 add_library(qmai_libs SHARED ${SOURCES} ${HEADERS})
 

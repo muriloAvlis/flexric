@@ -15,17 +15,18 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-void configureLogger(std::string xAppName)
+void configureLogger(std::string xAppName, spdlog::level::level_enum level)
 {
     auto console = spdlog::stdout_color_mt("console");
     console->set_pattern("[%Y-%m-%d %H:%M:%S][" + xAppName + "]%^[%l]%$[%s:%#] %v");
+    console->set_level(level);
     spdlog::set_default_logger(console);
 }
 
 int main(int argc, char *argv[])
 {
-    // get xApp log
-    configureLogger("qmai-xapp");
+    // configure xApp log
+    configureLogger("qmai-xapp", spdlog::level::debug);
 
     // xApp args
     fr_args_t args = init_fr_args(argc, argv);
