@@ -1,0 +1,1 @@
+static void print_ue_id(ue_id_e2sm_e type, ue_id_e2sm_t ue_id);
