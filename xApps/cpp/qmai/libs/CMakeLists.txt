@@ -18,8 +18,7 @@ set(HEADERS
 add_library(qmai_libs SHARED ${SOURCES} ${HEADERS})
 
 ## link header files
-target_include_directories(qmai_libs PUBLIC ../include
-                            ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
+target_include_directories(qmai_libs PUBLIC ../include)
 
 target_link_libraries(qmai_libs
 PUBLIC

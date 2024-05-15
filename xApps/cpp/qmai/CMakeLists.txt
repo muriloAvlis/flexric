@@ -7,7 +7,16 @@ add_compile_definitions(SPDLOG_ACTIVE_LEVEL)
 
 ## Add libs
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs) ## local libs
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/spdlog) ## scplog
+
+## build external libs
+Include(FetchContent)
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.x
+)
+FetchContent_MakeAvailable(spdlog)
+include_directories(${spdlog_SOURCE_DIR}/include/spdlog)
 
 ## Executable
 add_executable(xapp_qmai
@@ -15,8 +24,7 @@ add_executable(xapp_qmai
 )
 
 ## link header files
-target_include_directories(xapp_qmai PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include 
-                        ${CMAKE_CURRENT_SOURCE_DIR}/libs/spdlog/include)
+target_include_directories(xapp_qmai PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(xapp_qmai
 PUBLIC

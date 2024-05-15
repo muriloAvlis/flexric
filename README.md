@@ -24,3 +24,7 @@ To deployment RIC, CU and DU with Docker Compose, run to following commands:
 cd deployments
 docker compose up -d
 ```
+
+### QMAI-xApp Deployment
+
+TODO
