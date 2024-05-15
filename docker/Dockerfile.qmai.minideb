@@ -96,7 +96,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     apt-get autoclean -y
 
-RUN pip install -U pip
+RUN pip install --break-system-packages -U pip
 
 WORKDIR /
 
