@@ -16,7 +16,6 @@ FetchContent_Declare(
     GIT_TAG v1.x
 )
 FetchContent_MakeAvailable(spdlog)
-include_directories(${spdlog_SOURCE_DIR}/include/spdlog)
 
 ## Executable
 add_executable(xapp_qmai
