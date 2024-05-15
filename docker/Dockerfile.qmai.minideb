@@ -96,6 +96,8 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     apt-get autoclean -y
 
+RUN pip install -U pip
+
 WORKDIR /
 
 COPY --from=oai-flexric-builder \
