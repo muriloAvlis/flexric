@@ -16,7 +16,13 @@ To build the RIC, CU and DU Docker images, run to following command:
 make docker-build-all
 ```
 
-### Docker Compose Deployment
+### Only Near-RT FlexRIC deployment
+
+```sh
+docker container run -tid --name flexric -p 36421:36421/sctp -p 36422:36422 --restart on-failure muriloavlis/flexric:dev
+```
+
+### RIC deployment with emulated CU and DU
 To deployment RIC, CU and DU with Docker Compose, run to following commands:
 
 ```sh
@@ -24,6 +30,6 @@ cd deployments
 docker compose up -d
 ```
 
-### QMAI-xApp Deployment
+### xApp Deployment
 
 TODO
