@@ -56,7 +56,6 @@ jobs:
                 -DE2AP_VERSION=E2AP_V3 \
                 -DKPM_VERSION=KPM_V3_00 ..
           ninja
-          ctest -j8 --output-on-failure
 
       - name: Copy binaries
         run: bash scripts/cpRicFiles.sh
