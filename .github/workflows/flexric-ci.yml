@@ -24,22 +24,22 @@ jobs:
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: | 
-              libsctp-dev
-              cmake-curses-gui
-              libpcre2-dev
-              python3-dev
-              ccache
-              build-essential
-              curl
-              gcc-13
-              g++-13
-              libtool
-              m4
-              bison
-              flex
-              gdb
-              mold
-              ninja-build
+              libsctp-dev \
+              cmake-curses-gui \
+              libpcre2-dev \
+              python3-dev \
+              ccache \
+              build-essential \
+              curl \
+              gcc-13 \
+              g++-13 \
+              libtool \
+              m4 \
+              bison \
+              flex \
+              gdb \
+              mold \
+              ninja-build \
               automake
           version: 1.0
       
@@ -69,7 +69,7 @@ jobs:
             muriloavlis/flexric
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=dev,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
             type=semver,pattern={{major}}.{{minor}}

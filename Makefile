@@ -8,7 +8,7 @@ include ./MakefileVars.mk
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-build-all: docker-build-flexric docker-build-flexric-gnb-cu docker-build-flexric-gnb-du ## Build all FlexRIC docker images (RIC-CU-DU)
+build-cu-du: build-emu-gnb-cu build-emu-gnb-du ## Build emulated CU and DU docker images (CU-DU)
 
 build-ric: ## Build FlexRIC docker image
 	@echo "Building FlexRIC..."
@@ -42,11 +42,7 @@ run-qmai: ## Run QMAI-xApp on Docker
 	@echo "Running QMAI-xApp on Docker..."
 	@docker container run -d -it --name flexric-qmai muriloavlis/qmai:flexric-dev
 
-run-all: run-flexric run-flexric-gnb-cu run-flexric-gnb-du ## Run FlexRIC stack on Docker (RIC-CU-DU)
-
-docker-login: ## Logging into Docker Hub
-	@echo "Logging into Docker Hub with user: ${DOCKER_USER}"
-	@docker login -u ${DOCKER_USER}
+run-all: run-ric run-emu-gnb-cu run-emu-gnb-du ## Run FlexRIC stack on Docker (RIC-CU-DU)
 
 docker-push-all: ## Push images to Docker Hub
 	@echo "Pushing images to Docker Hub..."
@@ -65,7 +61,7 @@ gnb-du-logs: ## Get FlexRIC-gNB-DU logs
 
 
 clean-all: ## Delete all FlexRIC containers on Docker
-	echo "Deleting containers from Docker..."
+	@echo "Deleting containers from Docker..."
 	@docker container rm -f flexric
 	@docker container rm -f flexric-gnb-cu
 	@docker container rm -f flexric-gnb-du
