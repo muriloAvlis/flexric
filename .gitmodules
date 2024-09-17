@@ -1,4 +1,0 @@
-[submodule "submodules/flexric"]
-	path = submodules/flexric
-	url = https://gitlab.eurecom.fr/mosaic5g/flexric
-	branch = dev
