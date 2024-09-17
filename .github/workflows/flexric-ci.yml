@@ -3,6 +3,8 @@ name: FlexRIC CI
 on:
   push:
     branches: ["main"]
+    paths:
+      - "docker/Dockerfile.flexric.ubuntu"
   pull_request:
     branches: ["main"]
 
