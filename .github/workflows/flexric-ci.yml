@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "docker/**"
+      - "docker/Dockerfile.flexric.ubuntu"
   pull_request:
     branches: ["main"]
 
