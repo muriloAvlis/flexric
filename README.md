@@ -23,18 +23,26 @@ make build-cu-du
 
 ### Deployments Types
 
-#### Only Near-RT FlexRIC deployment
+#### Near-RT FlexRIC deployment on Docker
 
 ```sh
 docker container run -tid --name flexric -p 36421:36421/sctp -p 36422:36422 --restart on-failure muriloavlis/flexric:dev
 ```
 
-#### RIC deployment with emulated CU and DU
+#### RIC deployment with emulated CU and DU on Docker
 To deployment RIC, CU and DU with Docker Compose, run to following commands:
 
 ```sh
 make run-all
 ```
+
+#### Near-RT FlexRIC deployment on Kubernetes
+
+```sh
+cd helm-chart/flexric
+helm upgrade --install flexric -n flexric . --create-namespace -f values.yaml
+```
+
 
 #### xApp Deployment
 

@@ -1,0 +1,4 @@
+1. Get the application status by running this commands:
+  kubectl get pods -n flexric
+2. Get the application service by running this command:
+  kubectl get svc -n flexric
