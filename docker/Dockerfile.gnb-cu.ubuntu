@@ -28,7 +28,6 @@
 # BUILDER IMAGE
 #---------------------------------------------------------------------
 ARG BASE_IMAGE=ubuntu:jammy
-ARG NEAR_RIC_IP=127.0.0.1
 
 FROM $BASE_IMAGE AS oai-flexric-base
 ENV DEBIAN_FRONTEND=noninteractive
@@ -99,7 +98,6 @@ RUN mkdir build && \
 FROM $BASE_IMAGE AS oai-flexric-gnb-cu
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Belem
-ARG NEAR_RIC_IP
 
 #install pkg/repo needed to run
 RUN apt-get update && \
@@ -132,7 +130,6 @@ COPY --from=oai-flexric-builder \
 
 ## Copy Config file
 COPY --from=oai-flexric-builder /flexric/flexric.conf /usr/local/etc/flexric/gnb-cu.conf
-RUN sed -i "s/NEAR_RIC_IP = 127.0.0.1/NEAR_RIC_IP = ${NEAR_RIC_IP}/g" /usr/local/etc/flexric/gnb-cu.conf
 
 RUN ldconfig && \
     echo "--- Check shared objects dependencies for executable gNB-CU ---" && \
@@ -143,5 +140,7 @@ RUN ldconfig && \
 ## E2
 EXPOSE 36421/sctp
 
-CMD ["-o0", "emu_agent_gnb_cu", "-c", "/usr/local/etc/flexric/gnb-cu.conf"]
-ENTRYPOINT [ "stdbuf" ]
+COPY docker/scripts/cu_entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]

@@ -33,6 +33,7 @@ docker container run -tid --name flexric -p 36421:36421/sctp -p 36422:36422 --re
 To deployment RIC, CU and DU with Docker Compose, run to following commands:
 
 ```sh
+export NEAR_RIC_IP=<your-near-ric-ip>
 make run-all
 ```
 
