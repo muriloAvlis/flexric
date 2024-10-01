@@ -62,7 +62,7 @@ RUN apt-get update && \
 
 RUN git clone https://github.com/swig/swig.git && \
     cd swig && \
-    git checkout release-4.1 && \
+    git checkout v4.2.1 && \
     ./autogen.sh && \
     ./configure --prefix=/usr/ && \
     make -j8 && \

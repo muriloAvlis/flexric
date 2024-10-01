@@ -16,11 +16,11 @@ build-ric: ## Build FlexRIC docker image
 
 build-emu-gnb-cu: ## Build FlexRIC-CU docker image
 	@echo "Building FlexRIC-gNB-CU..."
-	@docker image build -t muriloavlis/flexric-gnb-cu:${FLEXRIC_VERSION} -f docker/Dockerfile.gnb-cu.ubuntu .
+	@docker image build -t muriloavlis/flexric-gnb-cu:${FLEXRIC_VERSION} -f docker/Dockerfile.emu-gnb-cu.ubuntu .
 
 build-emu-gnb-du: ## Build FlexRIC-DU docker image
 	@echo "Building gNB-DU..."
-	@docker image build -t muriloavlis/flexric-gnb-du:${FLEXRIC_VERSION} -f docker/Dockerfile.gnb-du.ubuntu .
+	@docker image build -t muriloavlis/flexric-gnb-du:${FLEXRIC_VERSION} -f docker/Dockerfile.emu-gnb-du.ubuntu .
 
 build-qmai: ## Build QMAI-xApp docker image
 	@echo "Building QMAI-xApp..."
@@ -46,9 +46,9 @@ run-all: run-ric run-emu-gnb-cu run-emu-gnb-du ## Run FlexRIC stack on Docker (R
 
 docker-push-all: ## Push images to Docker Hub
 	@echo "Pushing images to Docker Hub..."
-	@docker image push muriloavlis/flexric:dev
-	@docker image push muriloavlis/flexric-gnb-cu:dev
-	@docker image push muriloavlis/flexric-gnb-du:dev
+	@docker image push muriloavlis/flexric:${FLEXRIC_VERSION}
+	@docker image push muriloavlis/flexric-gnb-cu:${FLEXRIC_VERSION}
+	@docker image push muriloavlis/flexric-gnb-du:${FLEXRIC_VERSION}
 
 ric-logs: ## Get FlexRIC logs
 	@docker logs -f flexric
