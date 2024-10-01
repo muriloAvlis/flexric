@@ -32,11 +32,11 @@ run-ric: ## Run FlexRIC on Docker
 
 run-emu-gnb-cu: ## Run FlexRIC-gNB-CU on Docker
 	@echo "Running FlexRIC-gNB-CU on Docker..."
-	@docker container run -d -it --name flexric-gnb-cu --privileged --env NEAR_RIC_IP=${NEAR_RIC_IP} muriloavlis/flexric-gnb-cu:${FLEXRIC_VERSION}
+	@docker container run -d -it --name flexric-gnb-cu --privileged --restart always --env NEAR_RIC_IP=${NEAR_RIC_IP} muriloavlis/flexric-gnb-cu:${FLEXRIC_VERSION}
 
 run-emu-gnb-du: ## Run FlexRIC-gNB-DU on Docker
 	@echo "Running FlexRIC-gNB-DU on Docker..."
-	@docker container run -d -it --name flexric-gnb-du --privileged --env NEAR_RIC_IP=${NEAR_RIC_IP} muriloavlis/flexric-gnb-du:${FLEXRIC_VERSION}
+	@docker container run -d -it --name flexric-gnb-du --privileged --restart always --env NEAR_RIC_IP=${NEAR_RIC_IP} muriloavlis/flexric-gnb-du:${FLEXRIC_VERSION}
 
 run-qmai: ## Run QMAI-xApp on Docker
 	@echo "Running QMAI-xApp on Docker..."
