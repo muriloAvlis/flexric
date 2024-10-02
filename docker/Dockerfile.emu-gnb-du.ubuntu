@@ -28,6 +28,15 @@
 # BUILDER IMAGE
 #---------------------------------------------------------------------
 ARG BASE_IMAGE=ubuntu:24.04
+ARG FLEXRIC_VERSION=br-flexric
+# E2AP_V1/E2AP_V2/E2AP_V3
+ARG E2AP_VERSION=E2AP_V3
+# KPM_V2_01/KPM_V2_03/KPM_V3_00
+ARG KPM_VERSION=KPM_V3_00
+# Disable xApps build
+ARG XAPP_MULTILANGUAGE=OFF
+# Only SQLITE installed (SQLITE3_XAPP)
+ARG XAPP_DB=NONE_XAPP
 
 FROM $BASE_IMAGE AS oai-flexric-base
 ENV DEBIAN_FRONTEND=noninteractive
@@ -57,7 +66,10 @@ RUN apt-get update && \
     gcc-13 \
     g++-13 \
     mold \
-    ninja-build && \
+    ninja-build \
+    pkg-config \
+    libconfig-dev \
+    libconfig++-dev && \
     apt-get clean
 
 RUN git clone https://github.com/swig/swig.git && \
@@ -71,9 +83,13 @@ RUN git clone https://github.com/swig/swig.git && \
 
 FROM oai-flexric-base AS oai-flexric-builder
 
-RUN git clone https://gitlab.eurecom.fr/mosaic5g/flexric.git /flexric && \
-    cd /flexric && \
-    git checkout dev
+ARG FLEXRIC_VERSION
+ARG E2AP_VERSION
+ARG KPM_VERSION
+ARG XAPP_MULTILANGUAGE
+ARG XAPP_DB
+
+RUN git clone https://gitlab.eurecom.fr/mosaic5g/flexric.git -b ${FLEXRIC_VERSION}
 
 WORKDIR /flexric
 
@@ -84,8 +100,10 @@ RUN mkdir build && \
     -DCMAKE_CXX_FLAGS_RELEASE="-O3" \
     -DCMAKE_C_COMPILER=gcc-13 \
     -DCMAKE_CXX_COMPILER=g++-13 \
-    -DE2AP_VERSION=E2AP_V3 \
-    -DKPM_VERSION=KPM_V3_00 .. && \
+    -DE2AP_VERSION=${E2AP_VERSION} \
+    -DKPM_VERSION=${KPM_VERSION} \
+    -DXAPP_MULTILANGUAGE=${XAPP_MULTILANGUAGE} \
+    -DXAPP_DB=${XAPP_DB} .. && \
     ninja && \
     ninja install && \
     echo "--- Check shared objects dependencies for executable gNB-DU ---" && \
@@ -96,8 +114,12 @@ RUN mkdir build && \
 #---------------------------------------------------------------------
 
 FROM $BASE_IMAGE AS oai-flexric-gnb-du
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Belem
+ARG FLEXRIC_VERSION
+ENV FLEXRIC_VERSION=${FLEXRIC_VERSION}
+
 
 #install pkg/repo needed to run
 RUN apt-get update && \
@@ -108,7 +130,9 @@ RUN apt-get update && \
     wget \
     libsctp1 \
     python3 \
-    python3-pip && \
+    python3-pip \
+    libconfig-dev \
+    libconfig++-dev && \
     apt-get autoremove -y && \
     apt-get autoclean -y
 
@@ -128,8 +152,12 @@ COPY --from=oai-flexric-builder \
 COPY --from=oai-flexric-builder \
     /flexric/build/examples/emulator/agent/emu_agent_gnb_du /usr/local/bin/emu_agent_gnb_du
 
-## Copy Config file
-COPY --from=oai-flexric-builder /flexric/flexric.conf /usr/local/etc/flexric/gnb-du.conf
+## Copy Config file 
+### for dev branch
+# COPY --from=oai-flexric-builder /flexric/flexric.conf /usr/local/etc/flexric/gnb-du.conf
+### for br-flexric branch
+COPY --from=oai-flexric-builder /flexric/conf_files/e2agent.conf /usr/local/etc/flexric/gnb-du.conf
+
 
 RUN ldconfig && \
     echo "--- Check shared objects dependencies for executable gNB-DU ---" && \
