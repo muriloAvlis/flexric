@@ -9,7 +9,7 @@ replicaCount: 1
 image:
   repository: muriloavlis/flexric
   # This sets the pull policy for images.
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -55,7 +55,7 @@ securityContext:
 
 network:
   hostNetwork: true ## use k8s node network enviroment
-  bind_iface: eth0 ## network interface to bind the Near-RT RIC
+  bind_iface: enp1s0 ## network interface to bind the Near-RT RIC
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
