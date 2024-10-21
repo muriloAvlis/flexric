@@ -117,8 +117,6 @@ RUN cd flexric && \
 #---------------------------------------------------------------------
 
 FROM $BASE_IMAGE AS oai-flexric
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=America/Belem
 
 ## Install pkg/repo needed to run
 RUN apt-get update && \
@@ -129,9 +127,14 @@ RUN apt-get update && \
     wget \
     libsctp1 \
     python3 \
-    python3-pip && \
+    python3-pip \
+    tzdata \
+    iproute2 && \
     apt-get autoremove -y && \
     apt-get autoclean -y
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Belem
 
 WORKDIR /
 
@@ -155,7 +158,6 @@ COPY --from=oai-flexric-builder \
 
 ## Copy Config file
 COPY --from=oai-flexric-builder /flexric/flexric.conf /usr/local/etc/flexric/flexric.conf
-RUN sed -i "s/NEAR_RIC_IP = 127.0.0.1/NEAR_RIC_IP = 0.0.0.0/g" /usr/local/etc/flexric/flexric.conf
 
 RUN ldconfig && \
     echo "--- Check shared objects dependencies for executable nearRT-RIC ---" && \
@@ -170,4 +172,8 @@ EXPOSE 36421/sctp
 ## E42
 EXPOSE 36422/sctp
 
-CMD ["stdbuf", "-o0", "nearRT-RIC"]
+## Copy entrypoint 
+COPY docker/scripts/ric_entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
