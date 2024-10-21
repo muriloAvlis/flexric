@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "docker/Dockerfile.flexric.ubuntu"
+      - "docker/scripts/ric_entrypoint.sh"
   pull_request:
     branches: ["main"]
 
