@@ -47,7 +47,7 @@ spec:
           {{- end }}
           env:
             - name: BIND_INTERFACE
-              value: {{ .Values.network.bind_iface }}
+              value: {{ .Values.network.bind_iface | quote }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:

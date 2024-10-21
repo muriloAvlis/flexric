@@ -26,7 +26,7 @@ make build-cu-du
 #### Near-RT FlexRIC deployment on Docker
 
 ```sh
-docker container run -tid --name flexric -p 36421:36421/sctp -p 36422:36422 --restart on-failure muriloavlis/flexric:dev
+docker container run -tid --name flexric --network host -e BIND_INTERFACE=[your-host-interface] --restart on-failure muriloavlis/flexric:latest
 ```
 
 #### RIC deployment with emulated CU and DU on Docker
