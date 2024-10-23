@@ -28,7 +28,7 @@ build-qmai: ## Build QMAI-xApp docker image
 
 run-ric: ## Run FlexRIC on Docker
 	@echo "Running FlexRIC on Docker..."
-	@docker container run -d -it --name flexric --restart always --privileged -p 36421:36421/sctp -p 36422:36422/sctp muriloavlis/flexric:${FLEXRIC_DOCKER_VERSION}
+	@docker container run -d --name flexric --network host --restart always --privileged -e BIND_INTERFACE=${RIC_BIND_INTERFACE} muriloavlis/flexric:${FLEXRIC_DOCKER_VERSION}
 
 run-emu-gnb-cu: ## Run FlexRIC-gNB-CU on Docker
 	@echo "Running FlexRIC-gNB-CU on Docker..."
